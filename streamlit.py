@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 
 # Load the trained model
-# model = pickle.load(open('heart_disease_model.pkl', 'rb'))
+model = pickle.load(open('trained_heart_disease_classifier_model.pkl', 'rb'))
 
 # Define a function to make predictions
 def predict_heart_disease(age, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal):
