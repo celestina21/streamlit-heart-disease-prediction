@@ -55,21 +55,6 @@ with st.sidebar:
     ca = st.slider("Number of Major Vessels Colored by Fluoroscopy", min_value=0, max_value=3, value=0)
     thal = st.selectbox("Thalassemia", ["normal", "fixed defect", "reversible defect"])
 
-# Convert categorical inputs
-cp_mapping = {"typical angina": 1, "atypical angina": 2, "non-anginal": 3, "asymptomatic": 4}
-fbs_mapping = {"False": 0, "True": 1}
-restecg_mapping = {"normal": 0, "stt abnormality": 1, "lv hypertrophy": 2}
-exang_mapping = {"False": 0, "True": 1}
-slope_mapping = {"downsloping": 0, "flat": 1, "upsloping": 2}
-thal_mapping = {"normal": 0, "fixed defect": 1, "reversible defect": 2}
-
-cp = cp_mapping[cp]
-fbs = fbs_mapping[fbs]
-restecg = restecg_mapping[restecg]
-exang = exang_mapping[exang]
-slope = slope_mapping[slope]
-thal = thal_mapping[thal]
-
 # Prediction and result display
 if st.button("Predict", key='predict_button'):
     result = predict_heart_disease(age, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal)
