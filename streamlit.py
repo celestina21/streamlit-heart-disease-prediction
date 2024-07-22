@@ -32,7 +32,9 @@ st.set_page_config(
     page_icon="❤️"
 )
 
-st.title("Heart Disease Prediction")
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.title("Heart Disease Prediction")
 st.write("Provide patient details to predict the likelihood of heart disease.")
 
 # Sidebar for inputs
