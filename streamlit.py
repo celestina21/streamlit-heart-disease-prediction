@@ -7,20 +7,20 @@ from sklearn.preprocessing import RobustScaler, OneHotEncoder
 model = joblib.load('trained_heart_disease_classifier_model.pkl')
 
 # Define a function to make predictions
-def predict_heart_disease(age, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal):
+def predict_heart_disease(age, chest_pain_type, top_rest_bps, cholesterol, high_fasting_blood_sugar, restecg, max_heart_rate, exercise_induced_angina, st_depression, slope, colored_vessels, thalassemia):
     data = {
         'age': [age],
-        'cp': [cp],
-        'trestbps': [trestbps],
-        'chol': [chol],
-        'fbs': [fbs],
+        'chest_pain_type': [chest_pain_type],
+        'top_rest_bps': [top_rest_bps],
+        'cholesterol': [cholesterol],
+        'high_fasting_blood_sugar': [high_fasting_blood_sugar],
         'restecg': [restecg],
-        'thalach': [thalach],
-        'exang': [exang],
-        'oldpeak': [oldpeak],
+        'max_heart_rate': [max_heart_rate],
+        'exercise_induced_angina': [exercise_induced_angina],
+        'st_depression': [st_depression],
         'slope': [slope],
-        'ca': [ca],
-        'thal': [thal]
+        'colored_vessels': [colored_vessels],
+        'thalassemia': [thalassemia]
     }
     df = pd.DataFrame(data)
     prediction = model.predict(df)
