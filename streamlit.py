@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+from sklearn.preprocessing import RobustScaler, OneHotEncoder
 
 # Load the trained model
 model = joblib.load('trained_heart_disease_classifier_model.pkl')
