@@ -73,12 +73,12 @@ st.set_page_config(
 
 with st.container():
     # Center the title
-    col1, col2, col3 = st.columns([2, 4, 0.5])
+    col1, col2, col3 = st.columns([1.5, 3, 0.5])
     with col2:
         st.title('Heart Disease Prediction')
 
 with st.container():
-    col1, col2, col3 = st.columns([1.5, 2, 0.5])
+    col1, col2, col3 = st.columns([2, 3, 1.5])
     with col2:
         st.markdown('#### 1. Open the left sidebar.')
         st.markdown('#### 2. Provide patient details.')
@@ -105,7 +105,7 @@ with st.sidebar:
 
 with st.container():
     # Center the button 
-    col1, col2, col3 = st.columns([2.3, 1.5, 2.5])
+    col1, col2, col3 = st.columns([2.3, 3, 2.5])
     with col2:
         # Prediction and result display
         if st.button('Predict', key = 'predict_button', type = 'primary', use_container_width = True):
