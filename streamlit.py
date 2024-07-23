@@ -3,10 +3,10 @@ import pandas as pd
 import joblib
 from sklearn.preprocessing import RobustScaler, OneHotEncoder
 
-# Load the trained model
+# Load the best model
 model = joblib.load('trained_heart_disease_classifier_model.pkl')
 
-# Data dictionary
+# Define a data dictionaty 
 data_dict = {
     'Feature': [
         'Age',
@@ -37,7 +37,7 @@ data_dict = {
         'Thalassemia type'
     ]
 }
-
+# Convert the data dictionary to 
 df_data_dict = pd.DataFrame(data_dict)
 
 # Define result as 2 so that no predictions are displayed when page is first opened or is refreshed 
@@ -91,17 +91,17 @@ st.write('\n')
 with st.sidebar:
     st.markdown('# Patient Details')
     age = st.slider('Age', min_value = 0, max_value = 120, value = 50)
-    chest_pain_type = st.selectbox('Chest Pain Type', ['Typical Angina', 'Atypical Angina', 'Non-Anginal', 'Asymptomatic'])
+    chest_pain_type = st.selectbox('Chest Pain Type', ['Typical Angina', 'Atypical Angina', 'Non-Anginal', 'Asymptomatic'], placeholder = 'Typical Angina')
     top_rest_bps = st.slider('Systolic Resting Blood Pressure (mm Hg)', min_value = 80, max_value = 200, value = 120)
     cholesterol = st.slider('Serum Cholesterol (mg/dl)', min_value = 100, max_value = 600, value = 200)
-    high_fasting_blood_sugar = st.selectbox('Fasting Blood Sugar > 120 mg/dl', ['False', 'True'])
-    restecg = st.selectbox('Resting ECG Results', ['Normal', 'ST-T Abnormality', 'LV Hypertrophy'])
+    high_fasting_blood_sugar = st.selectbox('Fasting Blood Sugar > 120 mg/dl', ['False', 'True'], placeholder = 'False')
+    restecg = st.selectbox('Resting ECG Results', ['Normal', 'ST-T Abnormality', 'LV Hypertrophy'], placeholder = 'Normal')
     max_heart_rate = st.slider('Maximum Heart Rate (bpm)', min_value = 50, max_value = 250, value = 150)
-    exercise_induced_angina = st.selectbox('Has Exercise-Induced Angina', ['False', 'True'])
-    st_depression = st.slider('ST Depression Induced by Exercise (mm)', min_value = 0.0, max_value = 10.0, value = 1.0)
-    slope = st.selectbox('Slope of the Peak Exercise ST Segment', ['Downsloping', 'Flat', 'Upsloping'])
-    colored_vessels = st.slider('Number of Major Vessels Colored by Fluoroscopy', min_value = 0, max_value = 3, value = 0)
-    thalassemia = st.selectbox('Thalassemia', ['Normal', 'Fixed Defect', 'Reversible Defect'])
+    exercise_induced_angina = st.selectbox('Exercise-Induced Angina', ['False', 'True'], placeholder = 'False')
+    st_depression = st.slider('ST Depression (mm)', min_value = 0.0, max_value = 10.0, value = 1.0)
+    slope = st.selectbox('Slope', ['Downsloping', 'Flat', 'Upsloping'], placeholder = 'Downsloping')
+    colored_vessels = st.slider('Number of Major Vessels Colored', min_value = 0, max_value = 3, value = 0)
+    thalassemia = st.selectbox('Thalassemia', ['Normal', 'Fixed Defect', 'Reversible Defect'], placeholder = 'Normal')
 
 with st.container():
     # Center the button 
@@ -110,11 +110,13 @@ with st.container():
         # Prediction and result display
         if st.button('Predict', key = 'predict_button', type = 'primary', use_container_width = True):
             result = predict_heart_disease(age, chest_pain_type.lower(), top_rest_bps, cholesterol, high_fasting_blood_sugar, restecg.lower(), max_heart_rate, exercise_induced_angina, st_depression, slope.lower(), colored_vessels, thalassemia.lower())
-            
+        
 if result == 1:
-    st.success('This patient likely has heart disease.', icon='✅')
+    st.success('This patient likely has heart disease.', icon = '✅')
+    st.info('However, exercise caution and verify this result before completing diagnosis.', icon = '⚠️')
 elif result == 0:
-    st.success('This patient likely does not have heart disease.', icon='❎')
+    st.success('This patient likely does not have heart disease.', icon = '❎')
+    st.info('Exercise caution and verify this result before completing diagnosis.', icon = '⚠️')
 else: 
     pass
 
@@ -124,7 +126,22 @@ st.write('\n')
 
 with st.container():
     # Center the button 
-    col1, col2, col3 = st.columns([2, 6, 1])
+    col1, col2, col3, col4 = st.columns([3, 5, 1, 9])
     with col2:
-        st.markdown('### Data Dictionary')
+        # Display user inputs
+        st.markdown('## Inputs')
+        st.write(f'**Age**: {age}')
+        st.write(f'**Chest Pain Type**: {chest_pain_type}')
+        st.write(f'**Systolic Resting Blood Pressure (mm Hg)**: {top_rest_bps}')
+        st.write(f'**Serum Cholesterol (mg/dl)**: {cholesterol}')
+        st.write(f'**Fasting Blood Sugar > 120 mg/dl**: {high_fasting_blood_sugar}')
+        st.write(f'**Resting ECG Results**: {restecg}')
+        st.write(f'**Maximum Heart Rate (bpm)**: {max_heart_rate}')
+        st.write(f'**Exercise-Induced Angina**: {exercise_induced_angina}')
+        st.write(f'**ST Depression (mm)**: {st_depression}')
+        st.write(f'**Slope**: {slope}')
+        st.write(f'**Number of Major Vessels Colored**: {colored_vessels}')
+        st.write(f'**Thalassemia**: {thalassemia}')
+    with col4:
+        st.markdown('## Data Dictionary')
         st.dataframe(df_data_dict, hide_index = True, height = 455)
