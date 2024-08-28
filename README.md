@@ -1,7 +1,7 @@
 # Streamlit Heart Disease Prediction Website 
 ## A streamlit website that integrated a binary classifier to predict if a patient is at risk of heart disease based on various medical data 
 [View website here](https://app-heart-disease-prediction-lhu5e6yvqydqha4p2vmnh9.streamlit.app/)
-### Created for Machine Learning for Developers module
+#### Created for Machine Learning for Developers module
 
 Libraries used: 
 - Pandas
